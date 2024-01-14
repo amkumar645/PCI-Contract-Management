@@ -1,0 +1,150 @@
+/* Navbar styling */
+@import url('https://fonts.cdnfonts.com/css/aileron');
+
+body {
+  min-height: 100vh;
+  margin: 0;
+}
+
+html * {
+  font-family: 'Aileron', sans-serif;
+}
+
+.navbar-custom {
+  background-color: #014E92;
+}
+
+.navbar-brand {
+  color: white !important;
+  font-size: 25px;
+}
+
+.nav-link {
+  color: white !important;
+  font-size: 20px;
+}
+
+.navbar-active {
+  color: #00A1B7 !important;
+}
+
+nav ul li a,
+nav ul li a:after,
+nav ul li a:before {
+  transition: all .5s;
+}
+
+/* stroke */
+nav.stroke ul li a,
+nav.fill ul li a {
+  position: relative;
+}
+
+nav.stroke ul li a:after,
+nav.fill ul li a:after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 0%;
+  content: '.';
+  color: transparent;
+  background: #fddb5b;
+  height: 1px;
+}
+
+nav.stroke ul li a:hover:after {
+  width: 80%;
+}
+
+nav.fill ul li a {
+  transition: all 2s;
+}
+
+nav.fill ul li a:hover:after {
+  z-index: -10;
+  animation: fill 1s forwards;
+  -webkit-animation: fill 1s forwards;
+  -moz-animation: fill 1s forwards;
+  opacity: 1;
+}
+
+/* Containers */
+.top-container {
+  margin-top: 30px;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+.center-container {
+  text-align: center;
+}
+
+.right-container {
+  text-align: right;
+}
+
+.left-container {
+  text-align: left;
+}
+
+.half-container {
+  width: 50%;
+}
+
+/* Logo */
+.small-logo {
+  height: 60px;
+}
+
+/* Color Animations */
+.color-animate {
+  background-image: linear-gradient(-225deg,
+    #001b32 0%,
+    #015197 25%,
+    #0187fd 50%,
+    #67b7fd 75%);
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 3s ease-in-out;
+  display: inline-block;
+  animation-iteration-count: infinite;
+  font-size: 70px;
+}
+
+/* Landing Styles */
+.landing-bg {
+  background-image: linear-gradient(to right bottom, #ffffff, #e8eafe, #cad7fe, #a1c6fe, #67b7fd);
+  height:100%
+}
+.landing-btn {
+  color: white;
+  font-size: 28px;
+  background-color: #014E92;
+  border: 1px solid #014E92;
+  padding: 10px 20px;
+  width:50%;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 8px 4px;
+  cursor: pointer;
+  border-radius: 20px;
+  margin-bottom: 50px;
+  transition: 0.3s;
+}
+.landing-btn:hover {
+  color: white;
+  border: 1px solid #001b32;
+  background-color: #001b32;
+  transition: 0.3s;
+}
+.landing-desc {
+  font-size: 30px;
+}
