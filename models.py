@@ -1,6 +1,5 @@
 import sqlalchemy.ext.declarative
 import sqlalchemy
-from sqlalchemy.dialects.postgresql import ARRAY
 
 Base = sqlalchemy.ext.declarative.declarative_base()
 
@@ -58,7 +57,7 @@ class Invoices (Base):
 
 # Invoice Records Table
 class InvoiceRecords (Base):
-  __tablename__ = 'invoices'
+  __tablename__ = 'records'
   id = sqlalchemy.Column(sqlalchemy.String, primary_key=True)
   invoice_number = sqlalchemy.Column(sqlalchemy.String)
   project_manager = sqlalchemy.Column(sqlalchemy.String)
@@ -78,7 +77,7 @@ class InvoiceRecords (Base):
 
 # Assignment Table
 class Assignment (Base):
-  __tablename__ = 'assignment'
+  __tablename__ = 'assignments'
   employee = sqlalchemy.Column(sqlalchemy.String, primary_key=True)
   contract_no = sqlalchemy.Column(sqlalchemy.String)
   position = sqlalchemy.Column(sqlalchemy.String)
@@ -86,6 +85,6 @@ class Assignment (Base):
 
 # Employees Table
 class Employees (Base):
-  __tablename__ = 'assignment'
+  __tablename__ = 'employees'
   employee = sqlalchemy.Column(sqlalchemy.String, primary_key=True)
   position = sqlalchemy.Column(sqlalchemy.String)

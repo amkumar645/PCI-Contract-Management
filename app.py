@@ -2,6 +2,8 @@ import flask
 import os
 from urllib.parse import urlencode
 import requests
+import database
+import models
 #----------------------------------------------------------------------
 
 app = flask.Flask(__name__, template_folder='.')
@@ -15,15 +17,29 @@ google_token_url = 'https://accounts.google.com/o/oauth2/token'
 google_userinfo_url = 'https://www.googleapis.com/oauth2/v1/userinfo'
 
 #----------------------------------------------------------------------
+# General Functions
+#----------------------------------------------------------------------
+def check_authentication():
+  google_token = flask.session.get('google_token')
+  return google_token is not None
+
+#----------------------------------------------------------------------
 # General Routes
 #----------------------------------------------------------------------
 # Landing page
 @app.route('/', methods=['GET'])
 @app.route('/index', methods=['GET'])
 def index():
-    html = flask.render_template('templates/landing.html')
-    response = flask.make_response(html)
-    return response
+  html = flask.render_template('templates/landing.html')
+  response = flask.make_response(html)
+  return response
+
+# Error page
+@app.route('/unauthorized', methods=['GET'])
+def error_page():
+  html = flask.render_template('templates/unauthorized.html')
+  response = flask.make_response(html)
+  return response
 
 #----------------------------------------------------------------------
 # Login Routes
@@ -42,7 +58,7 @@ def login():
 @app.route('/logout')
 def logout():
   flask.session.pop('google_token', None)
-  return 'Logged out successfully'
+  return flask.redirect(flask.url_for('index'))
 
 @app.route('/login/google/callback')
 def authorized():
@@ -63,10 +79,38 @@ def authorized():
   userinfo_response = requests.get(google_userinfo_url, headers={'Authorization': f'Bearer {access_token}'})
   user_info = userinfo_response.json()
 
+  email = user_info['email']
+  if "programcontrolsinc" not in email and "amkumar@princeton.edu" not in email:
+    flask.session.pop('google_token', None)
+    return flask.redirect(flask.url_for('error_page'))
+
   # Store token in session
   flask.session['google_token'] = (access_token, '')
 
-  # Here you can use user_info to get user details like email, name, etc.
-  print(user_info)
+  # Get employee
+  employee = database.get_employee(email)
+  if employee is None:
+    employee = models.Employees(
+      employee = email,
+      position = "Employee"
+    )
+    database.add_employee(employee)
+  
+  flask.session['email'] = email
 
-  return 'Logged in as: ' + user_info['email']
+  return flask.redirect(flask.url_for('contracts_main'))
+
+#----------------------------------------------------------------------
+# Contracts Routes
+#----------------------------------------------------------------------
+# Contracts Main Page
+@app.route('/contracts', methods=['GET'])
+def contracts_main():
+  if not check_authentication():
+    return flask.redirect(flask.url_for('error_page'))
+  email = flask.session.get("email")
+  html = flask.render_template('templates/contracts.html', 
+          employee=database.get_employee(email)
+        )
+  response = flask.make_response(html)
+  return response

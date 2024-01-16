@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TigerJobs</title>
+  <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css' rel='stylesheet'>
+  <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css' rel='stylesheet'>
+  <!------------------------JS/CSS/JQuery/Bootstrap src ------------>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <!-- CSS stylesheet  -->
+  <link rel="stylesheet" type="text/css" href="../static/app.css">
+  <style type="text/css">
+    @import url('https://fonts.cdnfonts.com/css/aileron');
+
+    body {
+      font-family: 'Aileron', sans-serif;
+    }
+  </style>
+  <link rel="icon" type="image/png" href="{{ url_for('static',filename='favicon.png') }}">
+</head>
+
+<body style="background-image: linear-gradient(to right bottom, #ffffff, #e8eafe, #cad7fe, #a1c6fe, #67b7fd);">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-custom navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/"><img class='small-logo' src='/static/assets/logo_white.png'><b></b></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/login">Log In</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Content -->
+  <div class="top-container center-container">
+    <h1 class="color-animate"><b>Unauthorized Access</b></h1>
+  </div>
+  <div class="landing-desc center-container top-container">
+    Please use a PCI email to log in successfully.
+      <br>
+      <br>
+      <a href="/login"><button type="button" class="landing-btn"><b>Log In</b></button></a>
+  </div>
+</body>
+
+</html>
