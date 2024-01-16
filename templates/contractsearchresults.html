@@ -1,0 +1,45 @@
+<div id="contract-search-results" class="top-margin-container">
+  {% if contracts | length == 0 %}
+  <p id="contract-search-results-message" class="no-results">
+    <img src="/static/assets/noresults.png" padding=20px width=70% height=auto alt="No contract matches"
+      class="d-inline-block align-text-center mx-2" />
+    <br>
+    <br>
+    Oops, no results yet! Check your spelling, try different keywords, or adjust filters.
+  </p>
+  {% else %}
+  <div class="row">
+    {% for contract in contracts %}
+    <div class="col-4">
+      <div class="contract-card">
+        <h3><b>{{contract.name}}</b></h3>
+        <div>{{contract.owner}}</div>
+        <div>Contract No. {{contract.number}}</div>
+        <div><b>Value: </b>{{ "${:,.2f}".format(contract.value) }}</div>
+        {% if contract.status == 'Active' %}
+        <div><b>Status: </b><div class="active-box"><b>Active</b></div></div>
+        {% else %}
+        <div><b>Status: </b><div class="closed-box"><b>Closed</b></div></div>
+        {% endif %}
+        <br>
+        <div class="row left-container">
+          <div class="col-md-6">
+            <div><b>Prime:</b> {{contract.prime}}</div>
+            <div><b>Prime No.:</b> {{contract.prime_number}}</div>
+            <div><b>Start Date:</b> {{contract.date}}</div>
+          </div>
+          <div class="col-md-6">
+            <div><b>Cost Types:</b> {{contract.cost_types}}</div>
+            <div><b>Cost No.:</b> {{contract.co_no}}</div>
+            <div><b>Expiration Date:</b> {{contract.expiration_date}}</div>
+          </div>
+        </div>
+        <br>
+        <div><b>Description: </b>{{contract.description}}</div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  
+  {% endif %}
+</div>

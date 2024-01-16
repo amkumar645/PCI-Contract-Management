@@ -14,7 +14,7 @@ def add_test_contract(session):
     prime = "ATKINS",
     prime_number = 1,
     # mm-dd-yyyy
-    date = "03/17/21",
+    date = "03/17/2021",
     name = "SMART Program Estimating and Project Controls",
     value = 5.15e6,
     cost_types = "CPFF",
@@ -26,6 +26,42 @@ def add_test_contract(session):
     comments = "Task Orders may be issued from date of this MSA award until the last day of the period and any options exercised."
   )
   session.add(contract)
+  contract2 = models.Contracts(
+    number = 1010586,
+    owner = "Broward County Public Schools 2",
+    prime = "ATKINS",
+    prime_number = 1,
+    # mm-dd-yyyy
+    date = "03/17/2021",
+    name = "Second Contract",
+    value = 5.15e6,
+    cost_types = "CPFF",
+    co_no = 1,
+    description = "Review, analyze and provide recommendations for improvement of Atkins Monthly Reports.  Analyze other data related to processes that require improvement and provide recommendations",
+    status = "Active",
+    # mm-dd-yyyy
+    expiration_date = "04/16/2024",
+    comments = "Task Orders may be issued from date of this MSA award until the last day of the period and any options exercised."
+  )
+  session.add(contract2)
+  contract3 = models.Contracts(
+    number = 1010587,
+    owner = "Broward County Public Schools 2",
+    prime = "ATKINS",
+    prime_number = 1,
+    # mm-dd-yyyy
+    date = "03/17/2021",
+    name = "Third Contract",
+    value = 5.15e6,
+    cost_types = "CPFF",
+    co_no = 1,
+    description = "Review, analyze and provide recommendations for improvement of Atkins Monthly Reports.  Analyze other data related to processes that require improvement and provide recommendations",
+    status = "Closed",
+    # mm-dd-yyyy
+    expiration_date = "07/20/2022",
+    comments = "Task Orders may be issued from date of this MSA award until the last day of the period and any options exercised."
+  )
+  session.add(contract3)
 
 def add_test_authorization(session):
   authorization = models.Authorization(
@@ -34,12 +70,12 @@ def add_test_authorization(session):
     contract_number = 1010585,
     auth_number = 2,
     # mm-dd-yyyy
-    date = "07/14/22",
+    date = "07/14/2022",
     value =  89605.00,
     status = "Closed",
     description = "Review, analyze and provide recommendations for improvement of Atkins Monthly Reports.  Analyze other data related to processes that require improvement and provide recommendations",
     # mm-dd-yyyy
-    expiration_date = "03/15/23",
+    expiration_date = "03/15/2023",
   )
   session.add(authorization)
 
@@ -61,7 +97,8 @@ def add_test_invoice(session):
 
 def add_test_employee(session):
   employee = models.Employees(
-    employee="amkumar@princeton.edu",
+    email="amkumar@princeton.edu",
+    name="Arnav Kumar",
     position="Admin"
   )
   session.add(employee)

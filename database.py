@@ -20,7 +20,7 @@ def get_employee(id) -> models.Employees:
   employee = None
   with sqlalchemy.orm.Session(engine) as session:
     employee = session.query(models.Employees).filter(
-      models.Employees.employee == id).first()
+      models.Employees.email == id).first()
   return employee
 
 # Add employee to database
@@ -28,3 +28,16 @@ def add_employee(employee:models.Employees):
   with sqlalchemy.orm.Session(engine) as session:
     session.add(employee)
     session.commit()
+
+#----------------------------------------------------------------------
+# Contract Queries
+#----------------------------------------------------------------------
+# Get all contracts
+def get_all_contracts() -> List[models.Contracts]:
+  contracts = []
+  with sqlalchemy.orm.Session(engine) as session:
+    contracts = session.query(models.Contracts).order_by(
+      models.Contracts.number,
+      models.Contracts.date.desc()
+    ).all()
+  return contracts

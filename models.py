@@ -86,5 +86,6 @@ class Assignment (Base):
 # Employees Table
 class Employees (Base):
   __tablename__ = 'employees'
-  employee = sqlalchemy.Column(sqlalchemy.String, primary_key=True)
+  email = sqlalchemy.Column(sqlalchemy.String, primary_key=True)
+  name = sqlalchemy.Column(sqlalchemy.String)
   position = sqlalchemy.Column(sqlalchemy.String)

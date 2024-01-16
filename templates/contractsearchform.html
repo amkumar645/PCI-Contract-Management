@@ -1,0 +1,6 @@
+<form id="contract-search-form" class="nosubmit">
+  <input id="contract-search-bar" class="nosubmit form-control form-control-lg" type="text" name="query"
+    placeholder="Search contracts by contract number, name, owner, prime, or general keywords" value="{{ last_query_unquoted }}"
+    pattern="^[a-zA-Z0-9-:?%\x22\x27\x26\x2C ]+$" maxlength="50" autocomplete="off" autocapitalize="off"
+    oninput="getFilteredContractData()" />
+</form>

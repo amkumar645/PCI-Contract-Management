@@ -91,7 +91,8 @@ def authorized():
   employee = database.get_employee(email)
   if employee is None:
     employee = models.Employees(
-      employee = email,
+      email = email,
+      name = email,
       position = "Employee"
     )
     database.add_employee(employee)
@@ -109,8 +110,10 @@ def contracts_main():
   if not check_authentication():
     return flask.redirect(flask.url_for('error_page'))
   email = flask.session.get("email")
+  contracts = database.get_all_contracts()
   html = flask.render_template('templates/contracts.html', 
-          employee=database.get_employee(email)
+          employee=database.get_employee(email),
+          contracts=contracts
         )
   response = flask.make_response(html)
   return response
