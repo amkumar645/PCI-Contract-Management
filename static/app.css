@@ -184,7 +184,96 @@ input.nosubmit {
   background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat 13px center;
 }
 
+/* Home Styles */
+.home-card {
+  align-items: center;
+  align-content: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 15px;
+  margin-top: 20px;
+  border-radius: 0px;
+  padding: 60px 20px;
+  background-color: white;
+  transition: transform 0.3s;
+  box-shadow: 0px 0px 3px 3px #014E92;
+  font-size: 25px;
+  color: black;
+}
+
+.home-card:hover {
+  transform: scale(1.03);
+  transition: transform 0.3s;
+  cursor: pointer;
+}
+
+.home-link {
+  text-decoration: none;
+}
+
+.home-text {
+  margin-bottom: 30px;
+}
+
+.home-title {
+  font-size: 50px;
+}
+
 /* Contract Styles */
+.contract-title {
+  font-size: 35px;
+}
+
+.contract-details-card {
+  align-items: center;
+  align-content: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 15px;
+  margin-top: 20px;
+  border-radius: 15px;
+  padding: 30px 10px;
+  background-color: white;
+  transition: transform 0.3s;
+  box-shadow: 0px 0px 3px 3px #014E92;
+  font-size: 20px;
+  color: black;
+}
+
+.contract-details-card:hover {
+  transform: scale(1.03);
+  transition: transform 0.3s;
+}
+
+.contract-details-card h3 {
+  font-size:22px;
+}
+
+.contract-table-card {
+  align-items: center;
+  align-content: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 15px;
+  margin-top: 20px;
+  border-radius: 15px;
+  padding: 30px 10px;
+  background-color: white;
+  transition: transform 0.3s;
+  box-shadow: 0px 0px 3px 3px #014E92;
+  font-size: 15px;
+  color: black;
+}
+
+.contract-table-card:hover {
+  transform: scale(1.03);
+  transition: transform 0.3s;
+}
+
+.contract-table-card h3 {
+  font-size: 22px;
+}
+
 .container-scroll-contracts {
   padding-top: 0px;
   padding-bottom: 15px;
@@ -200,35 +289,23 @@ input.nosubmit {
   text-align: center;
 }
 
-.contract-card {
-  align-items: center;
-  align-content: center;
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-bottom: 15px;
-  margin-top: 15px;
-  border-radius: 10px;
-  padding: 15px;
-  background-color: #fff;
-  transition: transform 0.3s;
-  box-shadow: 0px 0px 3px 3px #014E92;
-  font-size: 15px;
-}
-
-.contract-card:hover {
-  transform: scale(1.03);
-  transition: transform 0.3s;
-}
-
-.contract-card h3 {
-  font-size:18px;
-}
-
 .active-box {
   color: white;
   font-size: 15px;
   background-color: #3BB143;
   border: 1px solid #3BB143;
+  padding: 2px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 20px;
+}
+
+.pending-box {
+  color: white;
+  font-size: 15px;
+  background-color: #DAA520;
+  border: 1px solid #DAA520;
   padding: 2px 10px;
   text-align: center;
   text-decoration: none;
@@ -246,4 +323,20 @@ input.nosubmit {
   text-decoration: none;
   display: inline-block;
   border-radius: 20px;
+}
+
+.edit-btn {
+  color: white;
+  background-color: #0047AB;
+  border-color: #0047AB;
+  border-radius: 0px;
+  padding: 10px;
+}
+
+.files-btn {
+  color: white;
+  background-color: #0B6623;
+  border-color: #0B6623;
+  border-radius: 0px;
+  padding: 10px;
 }

@@ -41,3 +41,53 @@ def get_all_contracts() -> List[models.Contracts]:
       models.Contracts.date.desc()
     ).all()
   return contracts
+
+# Get contract by contract number
+def get_contract_by_number(number) -> models.Contracts:
+  contract = None
+  with sqlalchemy.orm.Session(engine) as session:
+    contract = session.query(models.Contracts).filter(
+        models.Contracts.number == number).first()
+  return contract
+
+#----------------------------------------------------------------------
+# Authorization Queries
+#----------------------------------------------------------------------
+# Get all authorizations
+def get_all_authorizations() -> List[models.Authorization]:
+  auths = []
+  with sqlalchemy.orm.Session(engine) as session:
+    auths = session.query(models.Authorization).order_by(
+      models.Authorization.id,
+      models.Authorization.date.desc()
+    ).all()
+  return auths
+
+# Get all authorizations by contract number
+def get_all_authorizations_by_contract_number(number) -> List[models.Authorization]:
+  auths = []
+  with sqlalchemy.orm.Session(engine) as session:
+    auths = session.query(models.Authorization).filter(
+      models.Authorization.contract_number == number).all()
+  return auths
+
+#----------------------------------------------------------------------
+# Invoice Queries
+#----------------------------------------------------------------------
+# Get all invoices
+def get_all_invoices() -> List[models.Invoices]:
+  invoices = []
+  with sqlalchemy.orm.Session(engine) as session:
+    invoices = session.query(models.Invoices).order_by(
+      models.Invoices.id,
+      models.Invoices.date.desc()
+    ).all()
+  return invoices
+
+# Get all authorizations by contract number
+def get_all_invoices_by_contract_number(number) -> List[models.Invoices]:
+  invoices = []
+  with sqlalchemy.orm.Session(engine) as session:
+    invoices = session.query(models.Invoices).filter(
+      models.Invoices.contract_number == number).all()
+  return invoices

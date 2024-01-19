@@ -34,6 +34,18 @@ def index():
   response = flask.make_response(html)
   return response
 
+# Home page
+@app.route('/home', methods=['GET'])
+def home():
+  if not check_authentication():
+    return flask.redirect(flask.url_for('error_page'))
+  email = flask.session.get("email")
+  html = flask.render_template('templates/home.html', 
+            employee=database.get_employee(email)
+          )
+  response = flask.make_response(html)
+  return response
+
 # Error page
 @app.route('/unauthorized', methods=['GET'])
 def error_page():
@@ -99,7 +111,7 @@ def authorized():
   
   flask.session['email'] = email
 
-  return flask.redirect(flask.url_for('contracts_main'))
+  return flask.redirect(flask.url_for('home'))
 
 #----------------------------------------------------------------------
 # Contracts Routes
@@ -114,6 +126,24 @@ def contracts_main():
   html = flask.render_template('templates/contracts.html', 
           employee=database.get_employee(email),
           contracts=contracts
+        )
+  response = flask.make_response(html)
+  return response
+
+# Contracts Main Page
+@app.route('/contracts/<number>', methods=['GET'])
+def contract(number):
+  if not check_authentication():
+    return flask.redirect(flask.url_for('error_page'))
+  email = flask.session.get("email")
+  contract = database.get_contract_by_number(number)
+  auths = database.get_all_authorizations_by_contract_number(number)
+  invoices = database.get_all_invoices_by_contract_number(number)
+  html = flask.render_template('templates/contractpage.html', 
+          employee=database.get_employee(email),
+          contract=contract,
+          auths=auths,
+          invoices=invoices
         )
   response = flask.make_response(html)
   return response

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-custom navbar-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/"><img class='small-logo' src='/static/assets/logo_white.png'><b></b></a>
+    <a class="navbar-brand" href="/home"><img class='small-logo' src='/static/assets/logo_white.png'><b></b></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -16,6 +16,15 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/invoices">Invoices</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/pursuits">Pursuits</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/timesheet">Timesheet</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/profile">My Profile</a>
+        </li>
       </ul>
     </div>
     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
@@ -26,7 +35,6 @@
             {{employee.name}}
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="/profile">Profile</a></li>
             <li><a class="dropdown-item" href="/logout">Log Out</a></li>
           </ul>
         </li>
