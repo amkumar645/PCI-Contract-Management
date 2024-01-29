@@ -29,42 +29,13 @@
   <!-- Navbar -->
   {% include 'templates/navbar.html' %}
   <!-- Content -->
-  <div id="contract-single-content" class="top-container center-container">
-    <div class="contract-details-card">
-      <h1 class="color-animate contract-title"><b>Contract No. {{contract.number}}</b></h1>
-      <h3><b>{{contract.name}}</b></h3>
-      <div><b>Contract Owner:</b> {{contract.owner}}</div>
-      <div><b>Contract Value: </b>{{ "${:,.2f}".format(contract.value) }}</div>
-      {% if contract.status == 'Active' %}
-      <div><b>Status: </b>
-        <div class="active-box"><b>Active</b></div>
-      </div>
-      {% else %}
-      <div><b>Status: </b>
-        <div class="closed-box"><b>Closed</b></div>
-      </div>
-      {% endif %}
-      <br>
-      <div class="row left-container">
-        <div class="col-md-6">
-          <div><b>Prime:</b> {{contract.prime}}</div>
-          <div><b>Prime No.:</b> {{contract.prime_number}}</div>
-          <div><b>Start Date:</b> {{contract.date}}</div>
-        </div>
-        <div class="col-md-6">
-          <div><b>Cost Types:</b> {{contract.cost_types}}</div>
-          <div><b>Cost No.:</b> {{contract.co_no}}</div>
-          <div><b>Expiration Date:</b> {{contract.expiration_date}}</div>
-        </div>
-      </div>
-      <br>
-  </div>
-  <div class="contract-table-card">
-    <h1 class="color-animate contract-title"><b>Contract Authorizations</b></h1>
+  <div id="auths-content" class="top-container center-container">
+    <h1 class="color-animate home-title"><b>Authorizations</b></h1>
     <div class="container mt-4">
       <table id="auths-table" class="display table table-bordered table-hover">
         <thead class="thead-dark">
           <tr>
+            <th scope="col">Contract Number</th>
             <th scope="col">Authorization Number</th>
             <th scope="col">Type</th>
             <th scope="col">Value</th>
@@ -76,7 +47,8 @@
         <tbody>
           {% for auth in auths %}
           <tr>
-            <th scope="row"><a href="/authorizations/{{contract.number}}-{{auth.auth_number}}">{{auth.auth_number}}</a></th>
+            <th scope="row"><a href="/contracts/{{auth.contract_number}}">{{auth.contract_number}}</a></th>
+            <th scope="row"><a href="/authorizations/{{auth.id}}">{{auth.auth_number}}</a></th>
             <td>{{auth.type}}</td>
             <td>{{auth.value}}</td>
             <td>{{auth.date}}</td>
@@ -106,35 +78,6 @@
       </table>
     </div>
   </div>
-  <div class="contract-table-card">
-    <h1 class="color-animate contract-title"><b>Contract Invoices</b></h1>
-      <div class="container mt-4">
-        <table id="invoices-table" class="display table table-bordered table-hover">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">Invoice Number</th>
-              <th scope="col">Authorization Number</th>
-              <th scope="col">Period</th>
-              <th scope="col">Paid Amount</th>
-              <th scope="col">Start Date</th>
-              <th scope="col">Paid Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for invoice in invoices %}
-            <tr>
-              <th scope="row"><a href="/invoices/{{contract.number}}-{{invoice.auth_number}}-{{invoice.invoice_number}}">{{invoice.invoice_number}}</a></th>
-              <td>{{invoice.auth_number}}</td>
-              <td>{{invoice.period}}</td>
-              <td>{{invoice.paid_amount}}</td>
-              <td>{{invoice.date}}</td>
-              <td>{{invoice.paid_date}}</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-  </div>
 </body>
 
 </html>
@@ -142,6 +85,5 @@
 <script>
   $(document).ready(function () {
     $('#auths-table').DataTable();
-    $('#invoices-table').DataTable();
   });
 </script>

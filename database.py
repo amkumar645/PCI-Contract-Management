@@ -64,6 +64,14 @@ def get_all_authorizations() -> List[models.Authorization]:
   return auths
 
 # Get all authorizations by contract number
+def get_authorization_by_number(number) -> models.Authorization:
+  auth = None
+  with sqlalchemy.orm.Session(engine) as session:
+    auth = session.query(models.Authorization).filter(
+      models.Authorization.id == number).first()
+  return auth
+
+# Get all authorizations by contract number
 def get_all_authorizations_by_contract_number(number) -> List[models.Authorization]:
   auths = []
   with sqlalchemy.orm.Session(engine) as session:
@@ -84,10 +92,30 @@ def get_all_invoices() -> List[models.Invoices]:
     ).all()
   return invoices
 
+# Get invoice by ID
+def get_invoice_by_number(number) -> models.Invoices:
+  invoice = None
+  with sqlalchemy.orm.Session(engine) as session:
+    invoice = session.query(models.Invoices).filter(
+      models.Invoices.id == number).first()
+  return invoice
+
 # Get all authorizations by contract number
 def get_all_invoices_by_contract_number(number) -> List[models.Invoices]:
   invoices = []
   with sqlalchemy.orm.Session(engine) as session:
     invoices = session.query(models.Invoices).filter(
       models.Invoices.contract_number == number).all()
+  return invoices
+
+# Get all authorizations by contract-auth number
+def get_all_invoices_by_contract_auth_number(contract_auth) -> List[models.Invoices]:
+  contract_number = contract_auth.split("-")[0]
+  auth_number = contract_auth.split("-")[1]
+  invoices = []
+  with sqlalchemy.orm.Session(engine) as session:
+    invoices = session.query(models.Invoices).filter(
+      models.Invoices.contract_number == contract_number,
+      models.Invoices.auth_number == auth_number
+    ).all()
   return invoices

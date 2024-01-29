@@ -130,7 +130,7 @@ def contracts_main():
   response = flask.make_response(html)
   return response
 
-# Contracts Main Page
+# Contracts Individual Page
 @app.route('/contracts/<number>', methods=['GET'])
 def contract(number):
   if not check_authentication():
@@ -144,6 +144,68 @@ def contract(number):
           contract=contract,
           auths=auths,
           invoices=invoices
+        )
+  response = flask.make_response(html)
+  return response
+
+#----------------------------------------------------------------------
+# Authorizations Routes
+#----------------------------------------------------------------------
+@app.route('/authorizations', methods=['GET'])
+def auths_main():
+  if not check_authentication():
+    return flask.redirect(flask.url_for('error_page'))
+  email = flask.session.get("email")
+  auths = database.get_all_authorizations()
+  html = flask.render_template('templates/auths.html', 
+          employee=database.get_employee(email),
+          auths=auths
+        )
+  response = flask.make_response(html)
+  return response
+
+# Auth Individual Page
+@app.route('/authorizations/<number>', methods=['GET'])
+def authorization(number):
+  if not check_authentication():
+    return flask.redirect(flask.url_for('error_page'))
+  email = flask.session.get("email")
+  auth = database.get_authorization_by_number(number)
+  invoices = database.get_all_invoices_by_contract_auth_number(number)
+  html = flask.render_template('templates/authpage.html', 
+          employee=database.get_employee(email),
+          auth=auth,
+          invoices=invoices
+        )
+  response = flask.make_response(html)
+  return response
+
+#----------------------------------------------------------------------
+# Invoices Routes
+#----------------------------------------------------------------------
+@app.route('/invoices', methods=['GET'])
+def invoices_main():
+  if not check_authentication():
+    return flask.redirect(flask.url_for('error_page'))
+  email = flask.session.get("email")
+  invoices = database.get_all_invoices()
+  html = flask.render_template('templates/invoices.html', 
+          employee=database.get_employee(email),
+          invoices=invoices
+        )
+  response = flask.make_response(html)
+  return response
+
+# Invoice Individual Page
+@app.route('/invoices/<number>', methods=['GET'])
+def invoice(number):
+  if not check_authentication():
+    return flask.redirect(flask.url_for('error_page'))
+  email = flask.session.get("email")
+  invoice = database.get_invoice_by_number(number)
+  html = flask.render_template('templates/invoicepage.html', 
+          employee=database.get_employee(email),
+          invoice=invoice,
         )
   response = flask.make_response(html)
   return response
