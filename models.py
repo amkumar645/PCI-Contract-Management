@@ -89,3 +89,20 @@ class Employees (Base):
   email = sqlalchemy.Column(sqlalchemy.String, primary_key=True)
   name = sqlalchemy.Column(sqlalchemy.String)
   position = sqlalchemy.Column(sqlalchemy.String)
+  authorization = sqlalchemy.Column(sqlalchemy.String)
+  projects = sqlalchemy.Column(sqlalchemy.ARRAY(sqlalchemy.String))
+
+# Timesheet Table
+class Timesheet (Base):
+  __tablename__ = 'timesheet'
+  # ID = email-YYYY-W##
+  id = sqlalchemy.Column(sqlalchemy.String, primary_key=True)
+  email = sqlalchemy.Column(sqlalchemy.String)
+  # YYYY-W## is week
+  week = sqlalchemy.Column(sqlalchemy.String)
+  # days is 2D array of days with dates
+  days = sqlalchemy.Column(sqlalchemy.ARRAY(sqlalchemy.String))
+  # hours is 2D array of projects by days, each is HH:MM
+  hours = sqlalchemy.Column(sqlalchemy.ARRAY(sqlalchemy.String))
+  # description is 2D array of projects by days, each is a description
+  description = sqlalchemy.Column(sqlalchemy.ARRAY(sqlalchemy.String))  

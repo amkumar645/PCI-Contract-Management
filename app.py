@@ -4,6 +4,7 @@ from urllib.parse import urlencode
 import requests
 import database
 import models
+from datetime import datetime
 #----------------------------------------------------------------------
 
 app = flask.Flask(__name__, template_folder='.')
@@ -105,7 +106,9 @@ def authorized():
     employee = models.Employees(
       email = email,
       name = email,
-      position = "Employee"
+      position = "",
+      authorization = "Employee",
+      projects = []
     )
     database.add_employee(employee)
   
@@ -206,6 +209,43 @@ def invoice(number):
   html = flask.render_template('templates/invoicepage.html', 
           employee=database.get_employee(email),
           invoice=invoice,
+        )
+  response = flask.make_response(html)
+  return response
+
+#----------------------------------------------------------------------
+# Profile Routes
+#----------------------------------------------------------------------
+@app.route('/profile', methods=['GET'])
+def profile_main():
+  if not check_authentication():
+    return flask.redirect(flask.url_for('error_page'))
+  email = flask.session.get("email")
+  employee = database.get_employee(email)
+  html = flask.render_template('templates/profile.html', 
+          employee=employee,
+          contracts =database.get_employee_contracts(employee.projects)
+        )
+  response = flask.make_response(html)
+  return response
+
+#----------------------------------------------------------------------
+# Timesheet Routes
+#----------------------------------------------------------------------
+@app.route('/timesheet', methods=['GET'])
+def timesheet():
+  if not check_authentication():
+    return flask.redirect(flask.url_for('error_page'))
+  email = flask.session.get("email")
+  employee = database.get_employee(email)
+  today = datetime.now()
+  year = today.strftime("%Y")
+  week_number = today.strftime("%V")
+  week = f"{year}-W{week_number}"
+  timesheet = database.get_timesheet_by_date(employee.email + "-" + week)
+  html = flask.render_template('templates/timesheet.html', 
+          employee=employee,
+          timesheet=timesheet
         )
   response = flask.make_response(html)
   return response

@@ -9,7 +9,7 @@ db_url = os.getenv("DATABASE_URL")
 # Add test users
 def add_test_contract(session):
   contract = models.Contracts(
-    number = 1010585,
+    number = "1010585",
     owner = "Broward County Public Schools",
     prime = "ATKINS",
     prime_number = 1,
@@ -27,7 +27,7 @@ def add_test_contract(session):
   )
   session.add(contract)
   contract2 = models.Contracts(
-    number = 1010586,
+    number = "1010586",
     owner = "Broward County Public Schools 2",
     prime = "ATKINSATKINSATKINSATKINS",
     prime_number = 1,
@@ -45,7 +45,7 @@ def add_test_contract(session):
   )
   session.add(contract2)
   contract3 = models.Contracts(
-    number = 1010587,
+    number = "1010587",
     owner = "Broward County Public Schools 2",
     prime = "ATKINS",
     prime_number = 1,
@@ -113,9 +113,31 @@ def add_test_employee(session):
   employee = models.Employees(
     email="amkumar@princeton.edu",
     name="Arnav Kumar",
-    position="Admin"
+    position="CEO",
+    authorization="Admin",
+    projects = ["1010585", "1010586"]
   )
   session.add(employee)
+
+def add_test_timesheet(session):
+  timesheet = models.Timesheet(
+    id="amkumar@princeton.edu-2024-W07",
+    email="amkumar@princeton.edu",
+    week="2024-W07",
+    days=[
+      ["Monday (02/12/2024)", "Tuesday (02/13/2024)", "Wednesday (02/14/2024)", "Thursday (02/15/2024)", "Friday (02/16/2024)", "Saturday (02/17/2024)", "Sunday (02/18/2024)"],
+      ["Monday (02/12/2024)", "Tuesday (02/13/2024)", "Wednesday (02/14/2024)", "Thursday (02/15/2024)", "Friday (02/16/2024)", "Saturday (02/17/2024)", "Sunday (02/18/2024)"]
+    ],
+    hours=[
+      ["01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00"], 
+      ["00:70", "00:60", "00:50", "00:40", "00:30", "00:20", "00:10"]
+    ],
+    description=[
+      ["01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00"], 
+      ["00:70", "00:60", "00:50", "00:40", "00:30", "00:20", "00:10"]
+    ]
+  )
+  session.add(timesheet)
     
 def main():
   # Create engine and drop and recreate all tables
@@ -129,6 +151,7 @@ def main():
     add_test_authorization(session)
     add_test_invoice(session)
     add_test_employee(session)
+    add_test_timesheet(session)
     session.commit()
 
   engine.dispose()

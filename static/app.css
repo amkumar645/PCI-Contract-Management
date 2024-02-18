@@ -72,6 +72,41 @@ nav.fill ul li a:hover:after {
   opacity: 1;
 }
 
+/* Accordion */
+.accordion-body {
+  font-size:14px;
+}
+.accordion-body-title {
+  font-size: 18px;
+  text-decoration: none;
+}
+.accordion-link {
+  color: black;
+  text-decoration: none;
+}
+.accordion-active-box {
+  color: white;
+  font-size: 14px;
+  background-color: #3BB143;
+  border: 1px solid #3BB143;
+  padding: 2px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 20px;
+}
+.accordion-closed-box {
+  color: white;
+  font-size: 14px;
+  background-color: #D30000;
+  border: 1px solid #D30000;
+  padding: 2px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 20px;
+}
+
 /* Containers */
 .top-container {
   margin-top: 30px;
@@ -345,4 +380,150 @@ input.nosubmit {
 .auth-desc {
   margin-top:20px;
   text-align: left;
+}
+
+/* Timesheet */
+.contract-row {
+  background-color: lightgrey;
+}
+/* Define column widths */
+.col1 {
+  width: 30%;
+  /* Adjust as needed */
+}
+
+.col2 {
+  width: 30%;
+  /* Adjust as needed */
+}
+
+.col3 {
+  width: 40%;
+  /* Adjust as needed */
+}
+
+.timesheet-edit-btn {
+  padding: 10px;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border: 2px solid black;
+  border-radius: 5px;
+  color: black;
+}
+
+.timesheet-edit-btn:hover {
+  padding: 10px;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+}
+
+.timesheet-save-btn {
+  padding: 10px;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border: 2px solid black;
+  border-radius: 5px;
+  color: white;
+  background-color: #00C04B;
+}
+
+.timesheet-save-btn:hover {
+  padding: 10px;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  color: white;
+  background-color: #1FD655;
+}
+
+.timesheet-cancel-btn {
+  padding: 10px;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border: 2px solid black;
+  border-radius: 5px;
+  color: white;
+  background-color: #CA3433;
+}
+
+.timesheet-cancel-btn:hover {
+  padding: 10px;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  color: white;
+  background-color: #CD5C5C;
+}
+
+.description-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.timepicker-input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+}
+
+/* Style for the input field */
+.ui-timepicker-wrapper {
+  width: 100%;
+  max-width: 200px;
+  /* Set the maximum width */
+  box-sizing: border-box;
+  /* Ensure padding and border are included in width */
+}
+
+.ui-timepicker {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  box-sizing: border-box;
+  /* Ensure padding and border are included in width */
+  /* Add any other styles you'd like */
+}
+
+.ui-timepicker-list {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  box-sizing: border-box;
+  /* Ensure padding and border are included in width */
+}
+
+.ui-timepicker-list li {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #ccc;
+  box-sizing: border-box;
+  /* Ensure padding and border are included in width */
+}
+
+.ui-timepicker-list li:hover {
+  background-color: #36454F;
 }

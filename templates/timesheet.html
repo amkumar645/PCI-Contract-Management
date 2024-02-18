@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PCI Contract Management System</title>
+  <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+  <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.3.5/jquery.timepicker.min.css">
+  <!------------------------JS/CSS/JQuery/Bootstrap src ------------>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.3.5/jquery.timepicker.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <!-- CSS stylesheet  -->
+  <link rel="stylesheet" type="text/css" href="../static/app.css">
+  <style type="text/css">
+    @import url('https://fonts.cdnfonts.com/css/aileron');
+
+    body {
+      font-family: 'Aileron', sans-serif;
+    }
+    /* Style for the input field */
+    #datepicker {
+      padding: 10px;
+      font-size: 16px;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    /* Style for the input field when focused */
+    #datepicker:focus {
+      border-color: dodgerblue;
+    }
+  </style>
+  <link rel="icon" type="image/png" href="{{ url_for('static',filename='favicon.png') }}">
+</head>
+
+<body style="background-color: white">
+  <!-- Navbar -->
+  {% include 'templates/navbar.html' %}
+  <!-- Content -->
+  <div id="timesheet-container" class="top-container center-container">
+    <h1 class="color-animate home-title"><b>Timesheet</b></h1>
+    <br>
+    <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4">
+        <input type="week" id="datepicker" placeholder="Select Week">
+      </div>
+      <div id="edit-div" class="col-4 right-container">
+        <button class="timesheet-edit-btn" onclick="toggleEdit()">Edit Timesheet</button>
+      </div>
+      <div id="save-div" class="col-4 right-container">
+        <button class="timesheet-save-btn" onclick="toggleEdit()">Save Changes</button>
+        <button class="timesheet-cancel-btn" onclick="toggleEdit()">Cancel Changes</button>
+      </div>
+    </div>
+    <br>
+    <table id="disabled-table" class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Day/Date</th>
+          <th scope="col">Hours Worked (HH:MM)</th>
+          <th scope="col">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for project in employee.projects %}
+        <tr class="contract-row">
+          <td colspan="4">Contract No. <a href="/contracts/{{project}}" target="_blank">{{project}}</a></td>
+        </tr>
+        {% set rowloop = loop %}
+        {% for day in timesheet.days[rowloop.index0] %}
+        <tr>
+          <th class="col1">{{day}}</th>
+          <td class="col2">{{timesheet.hours[rowloop.index0][loop.index0]}}</td>
+          <td class="col3">{{timesheet.description[rowloop.index0][loop.index0]}}</td>
+        </tr>
+        {% endfor %}
+      {% endfor %}
+      </tbody>
+    </table>
+    <table id="edit-table" class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Day/Date</th>
+          <th scope="col">Hours Worked (HH:MM)</th>
+          <th scope="col">Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for project in employee.projects %}
+        <tr class="contract-row">
+          <td colspan="4">Contract No. <a href="/contracts/{{project}}" target="_blank">{{project}}</a></td>
+        </tr>
+        {% set rowloop = loop %}
+        {% for day in timesheet.days[rowloop.index0] %}
+        <tr>
+          <th class="col1">{{day}}</th>
+          <td class="col2"><input class="timepicker timepicker-input" type="text" id="timepicker-{{project}}-{{loop.index0}}" value="{{timesheet.hours[rowloop.index0][loop.index0]}}"></td>
+          <td class="col3"><input class="description-input" type="text" value="{{timesheet.description[rowloop.index0][loop.index0]}}"></td>
+        </tr>
+        {% endfor %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+
+</html>
+
+<script>
+  let edit = false;
+  
+  function toggleEdit() {
+    if (edit) {
+      $("#edit-table").hide()
+      $("#edit-div").show()
+      $("#save-div").hide()
+      $("#disabled-table").show()
+      edit = false
+    }
+    else {
+      $("#edit-table").show()
+      $("#edit-div").hide()
+      $("#save-div").show()
+      $("#disabled-table").hide()
+      edit = true
+    }
+  }
+
+  function getISOWeek(date) {
+    var d = new Date(date);
+    d.setHours(0, 0, 0, 0);
+    d.setDate(d.getDate() + 4 - (d.getDay() || 7));
+    var yearStart = new Date(d.getFullYear(), 0, 1);
+    return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+  }
+  function getCurrentISOWeek() {
+    var now = new Date();
+    var year = now.getFullYear();
+    var week = getISOWeek(now);
+    return year + '-W' + week.toString().padStart(2, '0');
+  }
+  function getSelectedWeekDates() {
+    var isoWeekValue = $('#datepicker').val()
+    console.log(isoWeekValue)
+    var year = parseInt(isoWeekValue.substring(0, 4), 10);
+    var week = parseInt(isoWeekValue.substring(6), 10);
+    var date = new Date(year, 0, (week - 1) * 7);
+    var dayOfWeek = date.getDay();
+    var monday = date;
+    if (dayOfWeek !== 1) {
+      monday.setDate(monday.getDate() - (dayOfWeek - 1));
+    }
+    var yearString = monday.getFullYear().toString();
+    var monthString = (monday.getMonth() + 1).toString().padStart(2, '0');
+    var dayString = monday.getDate().toString().padStart(2, '0');
+    console.log(yearString + '-' + monthString + '-' + dayString);
+
+    var sunday = new Date(monday);
+    sunday.setDate(sunday.getDate() + 6);
+    var yearString = sunday.getFullYear().toString();
+    var monthString = (sunday.getMonth() + 1).toString().padStart(2, '0');
+    var dayString = sunday.getDate().toString().padStart(2, '0');
+    console.log(yearString + '-' + monthString + '-' + dayString);
+  }
+  function setup() {
+    $('#datepicker').val(getCurrentISOWeek());
+    $('#datepicker').on('change', function () {
+      // Call the getSelectedWeekDates function whenever a date is selected
+      var selectedWeekDates = getSelectedWeekDates();
+    });
+    $('.timepicker').timepicker({
+      timeFormat: 'H:i',
+      scrollbar: true
+    });
+    $("#edit-table").hide()
+    $("#edit-div").show()
+    $("#save-div").hide()
+    $("#disabled-table").show()
+  }
+  $('document').ready(setup);
+</script>

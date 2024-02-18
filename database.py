@@ -23,6 +23,16 @@ def get_employee(id) -> models.Employees:
       models.Employees.email == id).first()
   return employee
 
+# Get user from netid
+def get_employee_contracts(contract_list) -> List[models.Contracts]:
+  contracts = []
+  with sqlalchemy.orm.Session(engine) as session:
+    for number in contract_list:
+      contracts.append(session.query(models.Contracts).filter(
+          models.Contracts.number == number).first())
+  return contracts
+
+
 # Add employee to database
 def add_employee(employee:models.Employees):
   with sqlalchemy.orm.Session(engine) as session:
@@ -119,3 +129,14 @@ def get_all_invoices_by_contract_auth_number(contract_auth) -> List[models.Invoi
       models.Invoices.auth_number == auth_number
     ).all()
   return invoices
+
+#----------------------------------------------------------------------
+# Timehseet Queries
+#----------------------------------------------------------------------
+# Get timesheet for given user and week
+def get_timesheet_by_date(id) -> models.Timesheet:
+  timesheet = None
+  with sqlalchemy.orm.Session(engine) as session:
+    timesheet = session.query(models.Timesheet).filter(
+      models.Timesheet.id == id).first()
+  return timesheet
